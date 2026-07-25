@@ -36,9 +36,15 @@ Route::post('/vendor' , [VendorController::class , 'store']);
 Route::patch('/vendor' , [VendorController::class , 'update']);
 Route::get('/products' , [ProductController::class , 'index']);
 
-Route::post('/vendor/addCategory' , [CategoryController::class , 'storeCategory']);
-Route::delete('/vendor/deleteCategory/{category}' , [CategoryController::class , 'destroyCategory']);
-Route::get('/vendor/categories' , [CategoryController::class , 'categories']);
+
+
+Route::post('/categories/addCategory' , [CategoryController::class , 'storeCategory']);
+Route::delete('/categories/deleteCategory/{category}' , [CategoryController::class , 'destroyCategory']);
+Route::get('/categories/loadCategories' , [CategoryController::class , 'categories']);
+
+Route::get('/categories' , [CategoryController::class , 'index']);
+Route::get('/categories/{slug}' , [CategoryController::class , 'show']);
+
 
 
 Route::post('/products/addProduct' , [ProductController::class , 'storeProduct']);

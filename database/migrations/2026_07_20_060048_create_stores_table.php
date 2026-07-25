@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
-            $table->string('logo')->nullable();
+            $table->string('image')->nullable();
             $table->string('phone');
             $table->string('address');
             $table->string('status')->default('pending');

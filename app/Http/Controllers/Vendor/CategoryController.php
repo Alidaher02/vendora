@@ -14,6 +14,26 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function index()
+    {
+        return view('vendor.categories');
+    }
+
+    public function show($slug)
+    {
+        $category = Auth::user()
+        ->store
+        ->categories()
+        ->where('slug', $slug)
+        ->firstOrFail();
+
+        $products = Product::where('category_id' , $category->id)->latest()->get();
+
+        return view('vendor.showCategory' , [
+            'category' => $category,
+            'products' => $products
+        ]);
+    }
 
     public function categories()
     {
@@ -49,13 +69,19 @@ class CategoryController extends Controller
 
 
     
-        public function destroyCategory(Category $category)
-    {
-        $category->delete();
-
+public function destroyCategory(Category $category)
+{
+    if ($category->products()->exists()) {
         return response()->json([
-            'message' => 'category was deleted!'
-        ]);
+            'message' => 'Cannot delete category because it has products.'
+        ], 400);
     }
+
+    $category->delete();
+
+    return response()->json([
+        'message' => 'Category deleted successfully.'
+    ]);
+}
 
 }

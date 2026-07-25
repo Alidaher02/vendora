@@ -4,7 +4,7 @@ document.getElementById('addCategoryForm').addEventListener('submit', async func
 
     const formData = new FormData(this);
 
-    const response = await fetch('/vendor/addCategory', {
+    const response = await fetch('/categories/addCategory', {
         method: 'POST',
 
         headers: {
@@ -27,9 +27,31 @@ document.getElementById('addCategoryForm').addEventListener('submit', async func
 
 });
 
+function showMessage(message, type = "success") {
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.remove("hidden");
+
+    if(type === "error") {
+        toast.className = 
+        "fixed bottom-5 right-5 px-5 py-3 rounded-xl text-white shadow-lg bg-red-500";
+    } 
+    else {
+        toast.className = 
+        "fixed bottom-5 right-5 px-5 py-3 rounded-xl text-white shadow-lg bg-green-500";
+    }
+
+
+    setTimeout(() => {
+        toast.classList.add("hidden");
+    }, 3000);
+}
 
 window.deleteCategory = async function(id) {
-    const response = await fetch(`/vendor/deleteCategory/${id}` , {
+    const response = await fetch(`/categories/deleteCategory/${id}` , {
         method: 'DELETE',
         headers: {
             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
@@ -41,17 +63,19 @@ window.deleteCategory = async function(id) {
 
     const data = await response.json();
 
-    if(response.ok)
-    {
-        console.log(data.message);
+    if(response.ok) {
+        showMessage(data.message, "success");
         loadCategories();
-
+    } else {
+        showMessage(data.message, "error");
+        console.log(data.message);
     }
 }
 
+
 async function loadCategories() {
     
-    const response = await fetch('/vendor/categories');
+    const response = await fetch('/categories/loadCategories');
     const data = await response.json();
 
 
@@ -60,57 +84,57 @@ async function loadCategories() {
     container.innerHTML = "";
     data.categories.forEach(category => {
         container.innerHTML += `
-<div class="bg-[#111827] border border-[#1f2937] rounded-2xl p-4
-            hover:border-blue-500/30 hover:bg-[#161f2d] transition-all duration-300">
+        <tr onclick="window.location.href='/categories/${category.slug}'"
+    class="hover:bg-[#111827] transition cursor-pointer">
 
-    <div class="flex items-center gap-4">
-        <img
-            src="/storage/${category.image}"
-            alt="${category.name}"
-            class="w-16 h-16 rounded-xl object-cover border border-[#2d3748]">
+    <td class="px-6 py-4">
+        <div class="flex items-center gap-4">
+
+            <img
+                src="/storage/${category.image}"
+                alt="${category.name}"
+                class="w-16 h-16 rounded-xl object-cover border border-[#2d3748]">
+
+            <div>
+                <h3 class="text-white font-medium">
+                    ${category.name}
+                </h3>
 
 
-        <div class="flex-1">
-
-            <h3 class="text-white font-semibold text-base">
-               ${category.name}
-            </h3>
-
-            <p class="text-sm text-gray-400 mt-1">
-                Product Category
-            </p>
+            </div>
 
         </div>
+    </td>
 
 
-        <button
-            onclick="deleteCategory(${category.id})"
-            class="delete-category cursor-pointer w-9 h-9 flex items-center justify-center rounded-lg
-            bg-red-500/10 border border-red-500/20
-            text-red-400 hover:bg-red-500 hover:text-white transition"
-            data-id="${category.id}">
+    <td class="px-6 py-4">
+        <div class="flex justify-end gap-2">
 
-            <svg xmlns="http://www.w3.org/2000/svg"
-                class="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
 
-        </button>
+            <button 
+                onclick="event.stopPropagation(); deleteCategory(${category.id})"
+                class="delete-category w-8 h-8 flex items-center justify-center rounded-lg
+                bg-red-500/10 border border-red-500/20 cursor-pointer
+                text-red-400 hover:bg-red-500 hover:text-white transition">
 
-    </div>
+                🗑️
 
-</div>
+            </button>
+
+        </div>
+    </td>
+
+</tr>
+
+
         `;
     });
+
 
 
 }
 
 loadCategories();
 setInterval(loadCategories , 1000);
+
+

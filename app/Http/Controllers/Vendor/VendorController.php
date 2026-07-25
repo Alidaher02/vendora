@@ -18,7 +18,7 @@ class VendorController extends Controller
     
 
         $store = Auth::user()->store;
-        $categories = $store->categories()->latest()->get();
+        $categories = $store?->categories()->latest()->get();
 
         
     $products = $store 
@@ -42,8 +42,13 @@ class VendorController extends Controller
             'description' => ['required', 'string', 'min:20', 'max:1000'],
             'address' => ['required', 'string', 'min:5', 'max:255'],
             'phone' => ['required', 'string', 'min:8', 'max:20'],
-            'logo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
+
+        
+        if ($request->hasFile('image')) {
+        $validated['image'] = $request->file('image')->store('images', 'public');
+            }
 
 
        Auth::user()->store()->create($validated);
