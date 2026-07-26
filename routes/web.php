@@ -59,7 +59,9 @@ Route::get('/products/count' , [ProductController::class , 'productCount']);
 
 Route::middleware(['auth' , 'customer'])->group(function(){
         
-Route::get('/customer' , [CustomerController::class , 'index']);
+Route::get('/stores' , [CustomerController::class , 'index']);
+Route::get('/stores/{slug}' , [CustomerController::class , 'showStore']);
+Route::get('/stores/search' , [CustomerController::class , 'storeSearch']);
 
 });
 

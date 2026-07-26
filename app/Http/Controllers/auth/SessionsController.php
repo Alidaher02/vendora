@@ -42,7 +42,7 @@ public function store(Request $request)
     }
 
     if (Auth::user()->isCustomer()) {
-        return redirect('/customer');
+        return redirect('/stores');
     }
 
     return redirect('/');

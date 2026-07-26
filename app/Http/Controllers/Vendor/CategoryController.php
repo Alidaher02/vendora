@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $category = Auth::user()
         ->store
         ->categories()
-        ->where('slug', $slug)
+        ->where('slug' , $slug)
         ->firstOrFail();
 
         $products = Product::where('category_id' , $category->id)->latest()->get();
