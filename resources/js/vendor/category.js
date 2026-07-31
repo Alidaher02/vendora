@@ -1,31 +1,40 @@
-document.getElementById('addCategoryForm').addEventListener('submit', async function(e) {
+const addCategoryForm = document.getElementById('addCategoryForm');
 
-    e.preventDefault();
+if(addCategoryForm){
 
-    const formData = new FormData(this);
+    addCategoryForm.addEventListener('submit', async function(e) {
 
-    const response = await fetch('/categories/addCategory', {
-        method: 'POST',
+        e.preventDefault();
 
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-        },
+        const formData = new FormData(this);
 
-        body: formData
+        const response = await fetch('/categories/addCategory', {
+            method: 'POST',
+
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+
+            body: formData
+        });
+
+
+        const data = await response.json();
+
+
+        if(response.ok){
+
+            showMessage(data.message);
+
+            document.getElementById('add_category_modal').close();
+
+            this.reset();
+
+        }
+
     });
 
-    const data = await response.json();
-
-    if (response.ok) {
-
-        console.log(data.message);
-
-        document.getElementById('add_category_modal').close();
-
-        this.reset();
-    }
-
-});
+}
 
 function showMessage(message, type = "success") {
 
@@ -74,67 +83,66 @@ window.deleteCategory = async function(id) {
 
 
 async function loadCategories() {
-    
+
     const response = await fetch('/categories/loadCategories');
     const data = await response.json();
 
-
     const container = document.getElementById("categories");
 
+    // Protection if element does not exist
+    if (!container) {
+        return;
+    }
+
     container.innerHTML = "";
+
     data.categories.forEach(category => {
+
         container.innerHTML += `
         <tr onclick="window.location.href='/categories/${category.slug}'"
-    class="hover:bg-[#111827] transition cursor-pointer">
+            class="hover:bg-[#111827] transition cursor-pointer">
 
-    <td class="px-6 py-4">
-        <div class="flex items-center gap-4">
+            <td class="px-6 py-4">
+                <div class="flex items-center gap-4">
 
-            <img
-                src="/storage/${category.image}"
-                alt="${category.name}"
-                class="w-16 h-16 rounded-xl object-cover border border-[#2d3748]">
+                    <img
+                        src="/storage/${category.image}"
+                        alt="${category.name}"
+                        class="w-16 h-16 rounded-xl object-cover border border-[#2d3748]">
 
-            <div>
-                <h3 class="text-white font-medium">
-                    ${category.name}
-                </h3>
+                    <div>
+                        <h3 class="text-white font-medium">
+                            ${category.name}
+                        </h3>
+                    </div>
 
-
-            </div>
-
-        </div>
-    </td>
+                </div>
+            </td>
 
 
-    <td class="px-6 py-4">
-        <div class="flex justify-end gap-2">
+            <td class="px-6 py-4">
+                <div class="flex justify-end gap-2">
 
+                    <button 
+                        onclick="event.stopPropagation(); deleteCategory(${category.id})"
+                        class="delete-category w-8 h-8 flex items-center justify-center rounded-lg
+                        bg-red-500/10 border border-red-500/20 cursor-pointer
+                        text-red-400 hover:bg-red-500 hover:text-white transition">
 
-            <button 
-                onclick="event.stopPropagation(); deleteCategory(${category.id})"
-                class="delete-category w-8 h-8 flex items-center justify-center rounded-lg
-                bg-red-500/10 border border-red-500/20 cursor-pointer
-                text-red-400 hover:bg-red-500 hover:text-white transition">
+                        🗑️
 
-                🗑️
+                    </button>
 
-            </button>
+                </div>
+            </td>
 
-        </div>
-    </td>
-
-</tr>
-
-
+        </tr>
         `;
     });
-
-
-
 }
 
-loadCategories();
-setInterval(loadCategories , 1000);
 
+
+    loadCategories();
+    setInterval(loadCategories,1000);
 

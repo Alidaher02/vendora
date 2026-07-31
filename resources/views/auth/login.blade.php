@@ -1,42 +1,206 @@
 <x-layout>
 
-<main class="bg-gray-50 px-4 md:px-8 dark:bg-neutral-900">
-
-   <div class="min-h-screen flex flex-col items-center mt-10">
-      <div class="max-w-md w-full">
-         <div
-            class="p-6 rounded-lg bg-white border border-slate-300 shadow-xs md:p-8 dark:bg-neutral-800 dark:border-neutral-700">
-            <h1 class="text-slate-900 text-center text-3xl font-bold dark:text-slate-50">Sign In</h1>
-
-            <form class="space-y-6 mt-10" method="POST" action="/login">
-            @csrf
-
-               <div>
-                  <label for="email"
-                     class="mb-2 text-slate-900 font-medium text-sm inline-block dark:text-slate-50">Email</label>
-                  <input type="email" id="email" name="email" placeholder="john@readymadeui.com" required
-                     class="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-50 dark:bg-neutral-700 dark:outline-neutral-600" />
-               </div>
-               <div>
-                  <label for="password"
-                     class="mb-2 text-slate-900 font-medium text-sm inline-block dark:text-slate-50">Password</label>
-                  <input type="password" id="password" name="password" placeholder="••••••••" required
-                     class="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-50 dark:bg-neutral-700 dark:outline-neutral-600" />
-               </div>
+<main class="min-h-screen relative overflow-hidden bg-[#070b14] flex items-center justify-center px-4">
 
 
-               <button type="submit"
-                  class="w-full py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-                  Sign in</button>
+    <!-- Background effects -->
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full"></div>
 
-               <div class="text-slate-900 text-sm text-center dark:text-slate-50">Don't have an account? <a href="/login"
-                     class="text-blue-700 hover:underline ml-1 font-medium dark:text-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">Sign
-                     in</a>
-               </div>
+    <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full"></div>
+
+
+
+    <div class="relative w-full max-w-md">
+
+
+        <!-- Brand -->
+        <div class="mb-10">
+
+            <div class="flex items-center gap-3 mb-6">
+
+                <div class="w-11 h-11 rounded-xl bg-blue-600 
+                            flex items-center justify-center
+                            shadow-lg shadow-blue-600/30">
+
+                    <span class="text-white text-xl font-bold">
+                        V
+                    </span>
+
+                </div>
+
+
+                <span class="text-xl font-semibold text-white tracking-wide">
+                    Vendora
+                </span>
+
+            </div>
+
+
+            <h1 class="text-4xl font-bold text-white leading-tight">
+                Welcome back.
+                <span class="text-blue-500">
+                    Login
+                </span>
+            </h1>
+
+
+            <p class="mt-3 text-neutral-400">
+                Manage your store, products and orders from one place.
+            </p>
+
+        </div>
+
+
+
+
+
+        <!-- Login box -->
+        <div class="bg-[#0d1422]/80 backdrop-blur-xl 
+                    border border-white/10 
+                    rounded-3xl p-8
+                    shadow-2xl">
+
+
+            <form method="POST" action="/login" class="space-y-5">
+
+                @csrf
+
+
+
+                <!-- Email -->
+                <div>
+
+                    <label class="text-sm text-neutral-300">
+                        Email
+                    </label>
+
+
+                    <input
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                    class="mt-2 w-full rounded-xl
+                           bg-[#080d17]
+                           border border-white/10
+                           px-4 py-3
+                           text-white
+                           placeholder:text-neutral-600
+                           outline-none
+                           focus:border-blue-500
+                           focus:ring-4 focus:ring-blue-500/10
+                           transition">
+
+
+                </div>
+
+
+
+
+
+                <!-- Password -->
+                <div>
+
+                    <div class="flex justify-between">
+
+                        <label class="text-sm text-neutral-300">
+                            Password
+                        </label>
+
+
+                        <a href="#"
+                        class="text-xs text-blue-400 hover:text-blue-300">
+                            Forgot?
+                        </a>
+
+                    </div>
+
+
+                    <input
+                    type="password"
+                    name="password"
+                    placeholder="••••••••"
+                    required
+                    class="mt-2 w-full rounded-xl
+                           bg-[#080d17]
+                           border border-white/10
+                           px-4 py-3
+                           text-white
+                           placeholder:text-neutral-600
+                           outline-none
+                           focus:border-blue-500
+                           focus:ring-4 focus:ring-blue-500/10
+                           transition">
+
+                </div>
+
+
+
+
+
+                <button
+                class="group relative w-full overflow-hidden rounded-xl 
+                       bg-blue-600 py-3.5
+                       text-white font-semibold
+                       transition">
+
+
+                    <span class="relative z-10">
+                        Sign In
+                    </span>
+
+
+                    <div class="absolute inset-0 
+                                translate-y-full
+                                bg-blue-500
+                                group-hover:translate-y-0
+                                transition duration-300">
+                    </div>
+
+
+                </button>
+
+
+
             </form>
-         </div>
-      </div>
-   </div>
+
+
+
+
+            <div class="mt-8 flex items-center gap-3">
+
+                <div class="h-px flex-1 bg-white/10"></div>
+
+                <span class="text-xs text-neutral-500">
+                    OR
+                </span>
+
+                <div class="h-px flex-1 bg-white/10"></div>
+
+            </div>
+
+
+
+
+            <p class="mt-6 text-center text-sm text-neutral-400">
+
+                New here?
+
+                <a href="/register"
+                class="text-white font-medium hover:text-blue-400 transition">
+                    Create your account
+                </a>
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
 </main>
+
 
 </x-layout>

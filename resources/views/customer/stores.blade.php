@@ -1,4 +1,4 @@
-<x-layout title="Customer">
+<x-customerLayout title="Customer">
 
 <div class="px-6 py-8">
 
@@ -49,83 +49,6 @@
 
 
     </div>
-
-    <script>
-const storeSearch = document.getElementById("storeSearch");
-const searchResults = document.getElementById("searchResults");
-
-storeSearch.addEventListener("input", function(){
-
-    let value = this.value.trim();
-
-    if(value.length < 1)
-    {
-        searchResults.innerHTML = "";
-        searchResults.classList.add("hidden");
-        return;
-    }
-
-    fetch(`/stores/search?search=${encodeURIComponent(value)}`)
-        .then(res => res.json())
-        .then(stores => {
-
-            if(stores.length === 0)
-            {
-                searchResults.innerHTML = `
-                    <div class="px-4 py-4 text-center text-sm text-gray-400">
-                        <i class="fa-solid fa-store-slash mb-2 text-gray-500"></i>
-                        <p>No stores found</p>
-                    </div>
-                `;
-
-                searchResults.classList.remove("hidden");
-                return;
-            }
-
-
-            searchResults.innerHTML = stores.map(store => `
-
-                <a href="/stores/${store.slug}" 
-                   class="block">
-
-                    <div class="w-full px-4 py-3
-                                border-b border-[#1f2530]
-                                transition-all duration-200
-                                hover:bg-[#182033]">
-
-                        <div class="flex items-center justify-between">
-
-                            <div>
-                                <h3 class="text-sm font-medium text-white">
-                                    ${store.name}
-                                </h3>
-
-                                <p class="text-xs text-gray-500 mt-1">
-                                    Visit store
-                                </p>
-                            </div>
-
-
-                            <img
-                                src="/storage/${store.image}"
-                                alt="${store.name}"
-                                class="w-10 h-10 rounded-lg object-cover 
-                                       border border-[#2d3748]">
-                            
-                        </div>
-
-                    </div>
-
-                </a>
-
-            `).join("");
-
-            searchResults.classList.remove("hidden");
-
-        });
-
-});
-    </script>
 
 
     <!-- Stores Grid -->
@@ -249,7 +172,140 @@ storeSearch.addEventListener("input", function(){
 
     </div>  
 
+  @if ($stores->hasPages())
+
+<div class="mt-10 flex flex-col sm:flex-row items-center justify-between 
+            bg-[#10141f] border border-[#1f2530]
+            rounded-xl px-5 py-4 gap-4">
+
+
+    <!-- Results Info -->
+    <div class="text-sm text-gray-400">
+
+        Showing
+
+        <span class="text-white font-semibold">
+            {{ $stores->firstItem() }}
+        </span>
+
+        -
+
+        <span class="text-white font-semibold">
+            {{ $stores->lastItem() }}
+        </span>
+
+        of
+
+        <span class="text-white font-semibold">
+            {{ $stores->total() }}
+        </span>
+
+        stores
+
+    </div>
+
+
+
+    <!-- Pagination -->
+    <div class="flex items-center gap-2">
+
+
+        {{-- Previous --}}
+        @if ($stores->onFirstPage())
+
+            <span class="px-3 py-2 rounded-lg
+                         bg-[#151b29]
+                         text-gray-600
+                         text-sm">
+                ←
+            </span>
+
+        @else
+
+            <a href="{{ $stores->previousPageUrl() }}"
+               class="px-3 py-2 rounded-lg
+                      bg-[#151b29]
+                      text-gray-300
+                      hover:bg-blue-600
+                      hover:text-white
+                      transition text-sm">
+                ←
+            </a>
+
+        @endif
+
+
+
+
+        {{-- Pages --}}
+        @foreach ($stores->getUrlRange(1, $stores->lastPage()) as $page => $url)
+
+            @if ($page == $stores->currentPage())
+
+                <span class="w-9 h-9 flex items-center justify-center
+                             rounded-lg
+                             bg-blue-600
+                             text-white
+                             text-sm
+                             font-semibold
+                             shadow-lg shadow-blue-600/20">
+                    {{ $page }}
+                </span>
+
+            @else
+
+                <a href="{{ $url }}"
+                   class="w-9 h-9 flex items-center justify-center
+                          rounded-lg
+                          bg-[#151b29]
+                          text-gray-400
+                          hover:bg-blue-600
+                          hover:text-white
+                          transition text-sm">
+                    {{ $page }}
+                </a>
+
+            @endif
+
+        @endforeach
+
+
+
+
+
+        {{-- Next --}}
+        @if ($stores->hasMorePages())
+
+            <a href="{{ $stores->nextPageUrl() }}"
+               class="px-3 py-2 rounded-lg
+                      bg-[#151b29]
+                      text-gray-300
+                      hover:bg-blue-600
+                      hover:text-white
+                      transition text-sm">
+                →
+            </a>
+
+        @else
+
+            <span class="px-3 py-2 rounded-lg
+                         bg-[#151b29]
+                         text-gray-600
+                         text-sm">
+                →
+            </span>
+
+        @endif
+
+
+    </div>
+
 
 </div>
 
-</x-layout>
+@endif
+
+
+</div>
+
+</x-customerLayout>

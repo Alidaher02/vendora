@@ -15,7 +15,7 @@ protected $fillable = [
     'description',
     'address',
     'phone',
-    'logo',
+    'image',
     'status',
 ];
     public function vendor()

@@ -1,3 +1,4 @@
+
 <x-layout>
 <div class="flex min-h-screen">
 
@@ -210,7 +211,9 @@
                 @foreach($products as $product)
 
 
-                    <x-product-card :product="$product" />
+                    <x-product-card :product="$product" :categories="$categories" />
+
+                    
 
 
                 @endforeach
@@ -218,6 +221,145 @@
             </tbody>
 
         </table>
+
+       <div>
+
+
+
+ @if ($products->hasPages())
+
+<div class="mt-10 flex flex-col sm:flex-row items-center justify-between 
+            bg-[#10141f] border border-[#1f2530]
+            rounded-xl px-5 py-4 gap-4">
+
+
+    <!-- Results Info -->
+    <div class="text-sm text-gray-400">
+
+        Showing
+
+        <span class="text-white font-semibold">
+            {{ $products->firstItem() }}
+        </span>
+
+        -
+
+        <span class="text-white font-semibold">
+            {{ $products->lastItem() }}
+        </span>
+
+        of
+
+        <span class="text-white font-semibold">
+            {{ $products->total() }}
+        </span>
+
+        stores
+
+    </div>
+
+
+
+    <!-- Pagination -->
+    <div class="flex items-center gap-2">
+
+
+        {{-- Previous --}}
+        @if ($products->onFirstPage())
+
+            <span class="px-3 py-2 rounded-lg
+                         bg-[#151b29]
+                         text-gray-600
+                         text-sm">
+                ←
+            </span>
+
+        @else
+
+            <a href="{{ $products->previousPageUrl() }}"
+               class="px-3 py-2 rounded-lg
+                      bg-[#151b29]
+                      text-gray-300
+                      hover:bg-blue-600
+                      hover:text-white
+                      transition text-sm">
+                ←
+            </a>
+
+        @endif
+
+
+
+
+        {{-- Pages --}}
+        @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+
+            @if ($page == $products->currentPage())
+
+                <span class="w-9 h-9 flex items-center justify-center
+                             rounded-lg
+                             bg-blue-600
+                             text-white
+                             text-sm
+                             font-semibold
+                             shadow-lg shadow-blue-600/20">
+                    {{ $page }}
+                </span>
+
+            @else
+
+                <a href="{{ $url }}"
+                   class="w-9 h-9 flex items-center justify-center
+                          rounded-lg
+                          bg-[#151b29]
+                          text-gray-400
+                          hover:bg-blue-600
+                          hover:text-white
+                          transition text-sm">
+                    {{ $page }}
+                </a>
+
+            @endif
+
+        @endforeach
+
+
+
+
+
+        {{-- Next --}}
+        @if ($products->hasMorePages())
+
+            <a href="{{ $products->nextPageUrl() }}"
+               class="px-3 py-2 rounded-lg
+                      bg-[#151b29]
+                      text-gray-300
+                      hover:bg-blue-600
+                      hover:text-white
+                      transition text-sm">
+                →
+            </a>
+
+        @else
+
+            <span class="px-3 py-2 rounded-lg
+                         bg-[#151b29]
+                         text-gray-600
+                         text-sm">
+                →
+            </span>
+
+        @endif
+
+
+    </div>
+
+
+</div>
+
+@endif
+</div>
+       </div>
 
     </div>
 

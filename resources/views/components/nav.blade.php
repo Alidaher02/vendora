@@ -3,8 +3,50 @@
        <a class="text-xl font-bold text-white hover:bg-transparent">
             <span class="text-blue-600">Ven</span>dora
         </a>
-@auth
+
+    @auth
+    
             <div class="flex items-center gap-5">
+                    @if (Auth::user()->role === App\Enums\UserRole::CUSTOMER)
+<a href="/store/cart"
+   class="group relative flex items-center justify-center 
+          w-12 h-12 rounded-2xl
+          bg-white/5 backdrop-blur-md
+          border border-white/10
+          text-white
+          hover:bg-white/10
+          hover:border-white/20
+          transition-all duration-300">
+
+    <!-- Cart SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke-width="1.8"
+         stroke="currentColor"
+         class="w-6 h-6 group-hover:scale-110 transition">
+
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25h9.75c.621 0 1.117-.512 1.064-1.13l-.75-8.25H5.106M7.5 14.25L6.375 18h11.25M7.5 14.25l-.75-3h13.5M9 21a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm8 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />
+    </svg>
+
+
+    <!-- Count -->
+    <span class="cartCount absolute -top-2 -right-2
+                 flex items-center justify-center
+                 min-w-[22px] h-[22px]
+                 px-1
+                 rounded-full
+                 bg-gradient-to-r from-blue-500 to-indigo-600
+                 text-white text-[11px] font-bold
+                 shadow-lg shadow-blue-500/30
+                 border border-[#0b1120]">
+        0
+    </span>
+
+</a>
+                    @endif
                 <button class="relative text-gray-400 hover:text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
                     <span class="absolute -top-1.5 -right-1.5 text-[10px] font-semibold bg-red-500 text-white rounded-full h-4 w-4 flex items-center justify-center">3</span>

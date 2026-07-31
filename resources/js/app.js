@@ -1,4 +1,4 @@
 import './vendor/vendor';
-import './vendor/counts';
+
 import './vendor/category';
-import './customer/storeSearch';
+import './vendor/counts';

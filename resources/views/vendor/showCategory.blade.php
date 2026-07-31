@@ -1,3 +1,4 @@
+
 <x-layout>
 
 <div class="overflow-hidden rounded-2xl border border-[#202938] bg-[#0b101a]">

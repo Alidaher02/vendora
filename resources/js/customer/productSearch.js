@@ -1,41 +1,45 @@
-const storeSearch = document.getElementById("storeSearch");
-const searchResults = document.getElementById("searchResults");
+const productSearchResults = document.getElementById("productSearchResults");
+const productSearch = document.getElementById("productSearch");
 
-const searchInput = document.getElementById("storeSearch");
+if (productSearch) {
 
-if (searchInput) {
-storeSearch.addEventListener("input", function(){
+productSearch.addEventListener("input" , function(){
 
     let value = this.value.trim();
 
     if(value.length < 1)
     {
-        searchResults.innerHTML = "";
-        searchResults.classList.add("hidden");
+        productSearchResults.innerHTML = "";
+        productSearchResults.classList.add("hidden");
         return;
     }
 
-    fetch(`/stores/search?search=${encodeURIComponent(value)}`)
+    fetch(`/products/search?search=${encodeURIComponent(value)}`)
         .then(res => res.json())
-        .then(stores => {
+        .then(products => {
 
-            if(stores.length === 0)
-            {
-                searchResults.innerHTML = `
-                    <div class="px-4 py-4 text-center text-sm text-gray-400">
+            productSearchResults.innerHTML = "";
+
+        if(products.length === 0)
+        {
+            productSearchResults.innerHTML = `
+                                <div class="px-4 py-4 text-center text-sm text-gray-400">
                         <i class="fa-solid fa-store-slash mb-2 text-gray-500"></i>
                         <p>No stores found</p>
                     </div>
-                `;
+            `;
 
-                searchResults.classList.remove("hidden");
-                return;
-            }
+            productSearchResults.classList.remove("hidden");
 
+            return;
 
-            searchResults.innerHTML = stores.map(store => `
+        } 
 
-                <a href="/stores/${store.slug}" 
+        products.forEach(product => {
+            
+            productSearchResults.innerHTML += `
+            
+                <a href="/stores/${product.slug}" 
                    class="block">
 
                     <div class="w-full px-4 py-3
@@ -47,7 +51,7 @@ storeSearch.addEventListener("input", function(){
 
                             <div>
                                 <h3 class="text-sm font-medium text-white">
-                                    ${store.name}
+                                    ${product.name}
                                 </h3>
 
                                 <p class="text-xs text-gray-500 mt-1">
@@ -57,8 +61,8 @@ storeSearch.addEventListener("input", function(){
 
 
                             <img
-                                src="/storage/${store.image}"
-                                alt="${store.name}"
+                                src="/storage/${product.image}"
+                                alt="${product.name}"
                                 class="w-10 h-10 rounded-lg object-cover 
                                        border border-[#2d3748]">
                             
@@ -67,13 +71,17 @@ storeSearch.addEventListener("input", function(){
                     </div>
 
                 </a>
+            
+            `;
 
-            `).join("");
+            productSearchResults.classList.remove("hidden");
 
-            searchResults.classList.remove("hidden");
+
+        });
 
         });
 
 });
+
 
 }

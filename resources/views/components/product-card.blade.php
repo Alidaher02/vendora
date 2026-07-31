@@ -50,16 +50,18 @@
 
                     <td class="px-6 py-4">
 
-                        <div class="flex justify-end gap-2">
+<div class="flex justify-end gap-2">
 
-                            <a href="/product/{{ $product->id }}"
+
+                            <button href="" id="editButton" onclick="openModal({{ $product->id }})"
                                class="w-8 h-8  rounded-lg flex items-center justify-center
                                bg-blue-500/10 border border-blue-500/20
                                text-blue-400 hover:bg-blue-500 hover:text-white transition">
 
                                 ✏️
 
-                            </a>
+                            </button>
+
                         <button 
                             class="delete-product w-8 h-8 flex items-center justify-center rounded-lg
                             bg-red-500/10 border border-red-500/20 cursor-pointer

@@ -1,3 +1,4 @@
+
 <x-layout>
 @if(!$store)
 <div class="min-h-screen bg-neutral-950 flex items-center justify-center px-6 py-10">
@@ -19,167 +20,167 @@
 
 
 
-            <form action="/vendor"
-                  method="POST"
-                  enctype="multipart/form-data"
-                  class="space-y-4 mt-6">
+                <form action="/vendor"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="space-y-4 mt-6">
 
 
-                @csrf
-
-
-
-                <!-- Store Name -->
-
-                <div>
-
-                    <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
-                        Store Name
-                    </label>
-
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Example: Ali Electronics"
-                        class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
-
-                </div>
+                    @csrf
 
 
 
-                <!-- Description -->
-
-                <div>
-
-                    <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
-                        Description
-                    </label>
-
-                    <textarea
-                        name="description"
-                        rows="3"
-                        placeholder="Tell customers about your store..."
-                        class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500 resize-none"></textarea>
-
-                </div>
-
-
-
-                <!-- Address -->
-
-                <div>
-
-                    <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
-                        Address
-                    </label>
-
-                    <input
-                        type="text"
-                        name="address"
-                        placeholder="Beirut, Lebanon"
-                        class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
-
-                </div>
-
-
-
-
-
-                <!-- Phone + Slug -->
-
-                <div class="grid grid-cols-2 gap-5">
-
+                    <!-- Store Name -->
 
                     <div>
 
                         <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
-                            Phone
+                            Store Name
                         </label>
 
                         <input
                             type="text"
-                            name="phone"
-                            placeholder="+961..."
+                            name="name"
+                            placeholder="Example: Ali Electronics"
                             class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
 
                     </div>
 
 
 
+                    <!-- Description -->
+
                     <div>
 
                         <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
-                            Slug
+                            Description
+                        </label>
+
+                        <textarea
+                            name="description"
+                            rows="3"
+                            placeholder="Tell customers about your store..."
+                            class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500 resize-none"></textarea>
+
+                    </div>
+
+
+
+                    <!-- Address -->
+
+                    <div>
+
+                        <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
+                            Address
                         </label>
 
                         <input
                             type="text"
-                            name="slug"
-                            placeholder="ali-electronics"
+                            name="address"
+                            placeholder="Beirut, Lebanon"
                             class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
 
                     </div>
 
 
-                </div>
 
 
 
+                    <!-- Phone + Slug -->
+
+                    <div class="grid grid-cols-2 gap-5">
 
 
-                <!-- Logo + Banner -->
+                        <div>
 
-                <div class="grid grid-cols-2 gap-5">
+                            <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
+                                Phone
+                            </label>
+
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="+961..."
+                                class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
+
+                        </div>
 
 
-                    <div>
 
-                        <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
-                            Store Logo
-                        </label>
+                        <div>
 
-                        <input
-                            type="file"
-                            name="logo"
-                            accept="image/*"
-                            class="text-sm text-gray-300 rounded-lg bg-[#0a0e16] w-full border border-[#2a3140]
-                            file:mr-2 file:py-2 file:px-3 file:border-0
-                            file:text-sm file:bg-[#1a1f2b] file:text-gray-200">
+                            <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
+                                Slug
+                            </label>
+
+                            <input
+                                type="text"
+                                name="slug"
+                                placeholder="ali-electronics"
+                                class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
+
+                        </div>
+
 
                     </div>
 
 
 
-                </div>
+
+
+                    <!-- Logo + Banner -->
+
+                    <div class="grid grid-cols-2 gap-5">
+
+
+                        <div>
+
+                            <label class="mb-1.5 text-gray-200 font-medium text-sm inline-block">
+                                Store Logo
+                            </label>
+
+                            <input
+                                type="file"
+                                name="image"
+                                accept="image/*"
+                                class="text-sm text-gray-300 rounded-lg bg-[#0a0e16] w-full border border-[#2a3140]
+                                file:mr-2 file:py-2 file:px-3 file:border-0
+                                file:text-sm file:bg-[#1a1f2b] file:text-gray-200">
+
+                        </div>
+
+
+
+                    </div>
 
 
 
 
 
-                <x-forms.error name="slug" />
+                    <x-forms.error name="slug" />
 
 
 
 
 
-                <!-- Buttons -->
+                    <!-- Buttons -->
 
-                <div class="flex items-center gap-3 pt-3">
-
-
-                    <button
-                        type="submit"
-                        class="flex-1 py-2.5 cursor-pointer text-sm rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-all">
-
-                        Submit For Approval
-
-                    </button>
-
-                </div>
+                    <div class="flex items-center gap-3 pt-3">
 
 
+                        <button
+                            type="submit"
+                            class="flex-1 py-2.5 cursor-pointer text-sm rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-all">
 
-            </form>
+                            Submit For Approval
+
+                        </button>
+
+                    </div>
+
+
+
+                </form>
 
 
         </div>

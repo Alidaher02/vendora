@@ -8,9 +8,13 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Vendor\ProductController;
 use App\Http\Controllers\Vendor\CategoryController;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\OrderController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+
+Route::redirect('/' , '/login');
 
 
 Route::middleware('guest')->group(function(){        
@@ -48,8 +52,12 @@ Route::get('/categories/{slug}' , [CategoryController::class , 'show']);
 
 
 Route::post('/products/addProduct' , [ProductController::class , 'storeProduct']);
+Route::patch('/products/edit/{product}' , [ProductController::class , 'update']);
 Route::delete('/products/deleteProduct/{product}' , [ProductController::class , 'destroy']);
 Route::get('/products/count' , [ProductController::class , 'productCount']);
+
+
+
 
 
 
@@ -60,9 +68,33 @@ Route::get('/products/count' , [ProductController::class , 'productCount']);
 Route::middleware(['auth' , 'customer'])->group(function(){
         
 Route::get('/stores' , [CustomerController::class , 'index']);
-Route::get('/stores/{slug}' , [CustomerController::class , 'showStore']);
 Route::get('/stores/search' , [CustomerController::class , 'storeSearch']);
+Route::get('/stores/{slug}' , [CustomerController::class , 'showStore']);
 
+
+Route::get('/products/search' , [CustomerController::class , 'productSearch']);
+Route::get('/products/{product}' , [CustomerController::class , 'showProduct']);
+
+Route::get('/store/cart' , [CartController::class , 'index']);
+Route::post('/store/cart/{product}' , [CartController::class , 'store']);
+
+Route::get('/store/cart/total' , [CartController::class , 'loadTotal']);
+Route::get('/cart/count' , [CartController::class , 'cartCount']);
+
+Route::get('/cart/items' , [CartController::class , 'loadItems']);
+
+Route::patch('/cart/items/{item}/inc' , [CartController::class , 'increment']);
+Route::patch('/cart/items/{item}/dec' , [CartController::class , 'decrement']);
+
+Route::get('/store/cart/quantity/{item}' , [CartController::class , 'quanCount']);
+
+Route::delete('/cart/items/{item}' , [CartController::class , 'destroy']);
+
+
+Route::get('/checkout' , [OrderController::class , 'index']);
+Route::post('/checkout' , [OrderController::class , 'order']);
 });
+
+
 
 
