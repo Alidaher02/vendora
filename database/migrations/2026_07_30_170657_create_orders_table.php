@@ -18,6 +18,12 @@ return new class extends Migration
                   ->cascadeOnDelete();
             $table->decimal('total_price' , 10 , 2);
             $table->string('status')->default('pending');
+            $table->string('recipient_name');
+            $table->string('phone');
+            $table->string('country');
+            $table->string('city');
+            $table->string('address');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

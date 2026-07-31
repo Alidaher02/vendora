@@ -34,7 +34,7 @@ class CustomerController extends Controller
     {
         $store = Store::where('slug' , $slug)->firstOrFail();
         $categories = $store->categories()->get();
-        $prodcuts = $store->products()->latest()->paginate(8);
+        $prodcuts = $store->products()->latest()->paginate(4);
 
         return view('customer.storeShow' , [
             'store' => $store,

@@ -46,6 +46,8 @@
 
                     </div>
 
+                    <x-forms.error name="name" />
+
 
 
                     <!-- Description -->
@@ -65,6 +67,7 @@
                     </div>
 
 
+                    <x-forms.error name="description" />
 
                     <!-- Address -->
 
@@ -81,6 +84,9 @@
                             class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
 
                     </div>
+
+                    <x-forms.error name="address" />
+
 
 
 
@@ -104,6 +110,7 @@
                                 class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
 
                         </div>
+                    <x-forms.error name="phone" />
 
 
 
@@ -120,6 +127,7 @@
                                 class="px-4 py-2.5 text-sm text-white rounded-lg bg-[#0a0e16] w-full border border-[#2a3140] focus:outline-none focus:border-blue-500">
 
                         </div>
+                    <x-forms.error name="slug" />
 
 
                     </div>
@@ -148,6 +156,8 @@
                                 file:text-sm file:bg-[#1a1f2b] file:text-gray-200">
 
                         </div>
+                        <x-forms.error name="image" />
+
 
 
 
