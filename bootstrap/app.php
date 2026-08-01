@@ -19,6 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
         'customer' => \App\Http\Middleware\CustomerMiddleware::class,
     ]);
 
+    
+    $middleware->validateCsrfTokens(except: [
+        'api/stripe/webhook',
+    ]);
+
+
 })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

@@ -90,6 +90,8 @@
 
                 </div>
 
+                <x-forms.error name="name" />
+
 
 
 
@@ -119,6 +121,7 @@
                            transition">
 
                 </div>
+                <x-forms.error name="email" />
 
 
 
@@ -149,6 +152,8 @@
                            transition">
 
                 </div>
+                                <x-forms.error name="password" />
+
 
 
 
@@ -259,7 +264,7 @@
                 <!-- Button -->
                 <button
                 type="submit"
-                class="group relative w-full overflow-hidden rounded-xl 
+                class="group cursor-pointer relative w-full overflow-hidden rounded-xl 
                        bg-blue-600 py-3.5
                        text-white font-semibold
                        transition">

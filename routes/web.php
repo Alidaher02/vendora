@@ -11,6 +11,8 @@ use App\Http\Controllers\Vendor\CategoryController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\OrderController;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
+use App\Http\Controllers\StripeWebhookController;
 use App\Models\User;
 
 
@@ -93,8 +95,16 @@ Route::delete('/cart/items/{item}' , [CartController::class , 'destroy']);
 
 Route::get('/checkout' , [OrderController::class , 'index']);
 Route::post('/checkout' , [OrderController::class , 'order']);
+
+Route::get('/orders' , [Ordercontroller::class , 'loadOrders']);
+Route::delete('/orders/{order}' , [OrderController::class , 'destroy']);
+
+Route::get('/orders/count' , [OrderController::class , 'orderCount']);
+
 });
 
 
 
 
+
+Route::post('/api/stripe/webhook', [StripeWebhookController::class, 'handle']);
