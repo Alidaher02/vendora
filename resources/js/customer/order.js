@@ -195,15 +195,3 @@ if(result.paymentIntent.status === "succeeded")
 
 }
 
-
-async function orderCount() {
-    
-    let response = await fetch('/orders/count');
-    let data = await response.json();
-
-    const orderCount = document.getElementById("orderCount");
-    
-    orderCount.textContent = data.orderCount;
-}
-
-await orderCount(); // Update the order count after placing an order

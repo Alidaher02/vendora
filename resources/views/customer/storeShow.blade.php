@@ -39,7 +39,7 @@
                             </span>
 
                             <span class="text-gray-400">
-                                {{ $products->count() }} Products
+                                0{{-- {{ $products->count() }} Products --}}
                             </span>
 
                             <span class="text-gray-500">
@@ -95,15 +95,30 @@
 
         <div class="flex flex-wrap items-center gap-3">
 
-            <button class="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-700 transition">
-                All
-            </button>
+            <select
+                name="category"
+                id="categoryFilter"
+                class="bg-[#10141f]
+                    border border-[#1f2530]
+                    rounded-lg
+                    px-4 py-2
+                    text-sm
+                    text-gray-300
+                    focus:outline-none
+                    focus:border-blue-500
+                    transition"
+                    onchange="filterByCategories(this.value)"
+                    >
 
-            @foreach ($categories as $category)
-            <button class="px-5 cursor-pointer py-2 rounded-full bg-[#10141f] border border-[#1f2530] hover:border-blue-500 transition">
-                {{ $category->name }}
-            </button>
-            @endforeach
+                    <option value="">All Categories</option>
+
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+
+            </select>
 
 
             <div class="ml-auto">
@@ -114,12 +129,13 @@
                            rounded-xl
                            px-4 py-2
                            text-sm
-                           focus:outline-none">
+                           focus:outline-none"
+                            onchange="filterProducts(this.value)"
+                           >
 
-                    <option>Newest</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Most Popular</option>
+                    <option value="latest">Newest</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
 
                 </select>
 
@@ -138,9 +154,6 @@
                     Products
                 </h2>
 
-                <p class="text-gray-400 text-sm mt-1">
-                    Showing {{$products->count()}} products
-                </p>
 
             </div>
 
@@ -149,11 +162,11 @@
 
         <!-- Product Grid Starts Here -->
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-7 mt-8">
+        <div id="productsContainer" data-store="{{ $store->id }}" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-7 mt-8">
 
 
         <!-- Product Card -->
-
+{{-- 
         @foreach ($products as $product)
         
         <a href="/products/{{ $product->id }}" class="block">
@@ -249,7 +262,7 @@
 
 </a>
 
-        @endforeach
+        @endforeach --}}
 
         <!-- Copy the product card above as many times as needed -->
 
@@ -257,79 +270,7 @@
 
     <!-- Pagination -->
 
-@if ($products->hasPages())
 
-<div class="flex items-center justify-center mt-16 mb-16">
-
-    <div class="flex items-center gap-3">
-
-        {{-- Previous --}}
-        @if ($products->onFirstPage())
-
-            <span class="w-11 h-11 flex items-center justify-center rounded-xl bg-[#10141f] border border-[#1f2530] text-gray-600 cursor-not-allowed">
-                <i class="fa-solid fa-chevron-left"></i>
-            </span>
-
-        @else
-
-            <a href="{{ $products->previousPageUrl() }}"
-               class="w-11 h-11 flex items-center justify-center rounded-xl bg-[#10141f] border border-[#1f2530] hover:border-blue-500 hover:bg-[#182033] transition">
-
-                <i class="fa-solid fa-chevron-left"></i>
-
-            </a>
-
-        @endif
-
-
-        {{-- Page Numbers --}}
-        @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
-
-            @if ($page == $products->currentPage())
-
-                <span class="w-11 h-11 flex items-center justify-center rounded-xl bg-blue-600 text-white font-semibold">
-                    {{ $page }}
-                </span>
-
-            @else
-
-                <a href="{{ $url }}"
-                   class="w-11 h-11 flex items-center justify-center rounded-xl bg-[#10141f] border border-[#1f2530] hover:border-blue-500 hover:bg-[#182033] transition">
-
-                    {{ $page }}
-
-                </a>
-
-            @endif
-
-        @endforeach
-
-
-        {{-- Next --}}
-        @if ($products->hasMorePages())
-
-            <a href="{{ $products->nextPageUrl() }}"
-               class="w-11 h-11 flex items-center justify-center rounded-xl bg-[#10141f] border border-[#1f2530] hover:border-blue-500 hover:bg-[#182033] transition">
-
-                <i class="fa-solid fa-chevron-right"></i>
-
-            </a>
-
-        @else
-
-            <span class="w-11 h-11 flex items-center justify-center rounded-xl bg-[#10141f] border border-[#1f2530] text-gray-600 cursor-not-allowed">
-
-                <i class="fa-solid fa-chevron-right"></i>
-
-            </span>
-
-        @endif
-
-    </div>
-
-</div>
-
-@endif
 
 </section>
 

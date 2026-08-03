@@ -77,11 +77,11 @@
                 d="M9 3h6a2 2 0 012 2h2a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V6a2 2 0 012-2h2m0 0a2 2 0 002 2h2a2 2 0 002-2"/>
         </svg>
 
-        <span id="orderCount" class="absolute -top-1.5 -right-1.5
+        <span id="" class="absolute -top-1.5 -right-1.5
                      flex items-center justify-center
                      w-5 h-5 rounded-full
                      bg-indigo-600 text-[11px] font-bold text-white">
-            0
+            {{Auth::user()->orders->count()}}
         </span>
     </a>
 

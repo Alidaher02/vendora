@@ -31,6 +31,19 @@ Route::delete('/logout' , [SessionsController::class , 'destroy'])->middleware('
 Route::middleware(['auth' , 'admin'])->group(function(){
 
 Route::get('/admin' , [AdminController::class , 'index']);
+Route::get('/admin/stores' , [AdminController::class , 'storeRequests']);
+Route::patch('/stores/{store}/approve' , [AdminController::class , 'approveStore']);
+Route::patch('/stores/{store}/reject' , [AdminController::class , 'rejectStore']);
+Route::get('/admin/store' , [AdminController::class , 'stores']);
+Route::get('/admin/products' , [AdminController::class , 'products']);
+Route::get('/admin/orders' , [AdminController::class , 'orders']);
+
+Route::get('/admin/vendors' , [AdminController::class , 'vendors']);
+Route::get('/admin/customers' , [AdminController::class , 'customers']);
+Route::get('/admin/settings' , [AdminController::class , 'settings']);
+
+Route::patch('/profile/update' , [AdminController::class , 'updateProfile']);
+
 
 });
 
@@ -73,6 +86,10 @@ Route::get('/stores' , [CustomerController::class , 'index']);
 Route::get('/stores/search' , [CustomerController::class , 'storeSearch']);
 Route::get('/stores/{slug}' , [CustomerController::class , 'showStore']);
 
+Route::get('/stores/{slug}/products' , [CustomerController::class , 'loadProducts']);
+Route::get('/store/{slug}/products' , [CustomerController::class , 'filterProducts']);
+Route::get('/store/{slug}/products/categories' , [CustomerController::class, 'filterByCategories']);
+
 
 Route::get('/products/search' , [CustomerController::class , 'productSearch']);
 Route::get('/products/{product}' , [CustomerController::class , 'showProduct']);
@@ -102,9 +119,6 @@ Route::delete('/orders/{order}' , [OrderController::class , 'destroy']);
 Route::get('/orders/count' , [OrderController::class , 'orderCount']);
 
 });
-
-
-
 
 
 Route::post('/api/stripe/webhook', [StripeWebhookController::class, 'handle']);

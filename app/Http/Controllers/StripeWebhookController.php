@@ -36,9 +36,9 @@ class StripeWebhookController extends Controller
                 ]);
 
 
-                $payment->order->update([
-                    'status' => 'confirmed'
-                ]);
+                // $payment->order->update([
+                //     'status' => 'confirmed'
+                // ]);
 
 
             }

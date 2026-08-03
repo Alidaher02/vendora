@@ -39,7 +39,66 @@ class CustomerController extends Controller
         return view('customer.storeShow' , [
             'store' => $store,
             'categories' => $categories,
+        ]);
+    }
+
+    public function loadProducts($slug)
+    {
+        $store = Store::where('slug', $slug)->firstOrFail();
+
+        $products = $store->products()
+                            ->with('category')
+                            ->latest()
+                            ->get();
+
+        return response()->json([
+            'products' => $products
+        ]);
+
+    }
+    public function filterProducts(Request $request , $slug)
+    {
+        $store = Store::where('slug', $slug)->firstOrFail();
+        $query = $store->products()->with('category');
+
+        if($request->sort == 'high')
+        {
+            $query->orderByDesc('price');
+        }
+
+        if($request->sort == 'low')
+        {
+            $query->orderBy('price', 'asc');
+        }
+
+        if($request->sort == 'latest')
+        {
+            $query->latest();
+        }
+
+        $prodcuts = $query->get();
+
+        return response()->json([
             'products' => $prodcuts
+        ]);
+    }
+
+    public function filterByCategories(Request $request , $slug){
+
+    $store = Store::where('slug', $slug)->firstOrFail();
+
+    $query = $store->products()->with('category');
+
+    if($request->category)
+    {
+        $query->where('category_id' , $request->category);
+    }
+
+    $products = $query->get();
+
+        return response()->json([
+
+            'products' => $products
         ]);
     }
 

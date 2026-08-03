@@ -1,4 +1,5 @@
-import './customer/storeSearch';
-import './customer/productSearch';
-import './customer/loadItems';
-import './customer/order';
+    import './customer/storeSearch';
+    import './customer/loadItems';
+    import './customer/loadproducts';
+    import './customer/productSearch';
+    import './customer/order';
